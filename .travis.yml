@@ -25,6 +25,7 @@ script:
   - export CC=gcc-7
   - export CXX=g++-7
   # Check versions of gcc, g++ and cmake
+  -which g++-7
   - gcc -v && g++ -v && cmake --version
   # Run your build commands next
   - make
