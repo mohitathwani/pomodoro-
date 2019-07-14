@@ -24,8 +24,4 @@ before_script:
 
 #script: make && make test
 script:
-  # Check versions of gcc, g++ and cmake
-  - which g++-7
-  - gcc -v && g++ -v && cmake --version
-  # Run your build commands next
   - make
