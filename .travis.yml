@@ -4,6 +4,12 @@ compiler:
   - gcc
   - clang
 
+addons:
+  apt:
+    packages:
+    - libgtkmm-3.0-dev 
+    - libxml2-utils
+
 before_script:
   - mkdir build
   - cd build
