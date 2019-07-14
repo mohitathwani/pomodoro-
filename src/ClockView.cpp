@@ -58,7 +58,7 @@ bool ClockView::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
   Gdk::Cairo::set_source_pixbuf(cr, m_image,
                                 (width - m_image->get_width()) / 2, (height - m_image->get_height()) / 2);
 
-                                cr->scale(width, height);
+  cr->scale(width, height);
   cr->paint();
 
   cr->translate(0.5, 0.5);
@@ -87,6 +87,8 @@ bool ClockView::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
       cr->set_line_width(0.03);
     }
     
+    // x = r*cos(Q)
+    // y = r*sin(Q)
     double x1 = (m_radius - inset) * cos (i * M_PI / 6);
     double y1 = (m_radius - inset ) * sin (i * M_PI / 6);
 
@@ -109,6 +111,7 @@ bool ClockView::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
   double minutes = timeinfo->tm_min * M_PI / 30;
   double hours = timeinfo->tm_hour * M_PI / 6;
   double seconds= timeinfo->tm_sec * M_PI / 30;
+  std::cout << timeinfo->tm_sec << std::endl;
 
   cr->save();
   cr->set_line_cap(Cairo::LINE_CAP_ROUND);
@@ -116,7 +119,14 @@ bool ClockView::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
   // draw the seconds hand
   cr->save();
   cr->set_line_width(m_line_width / 3);
-  cr->set_source_rgba(0.7, 0.7, 0.7, 0.8); // gray
+  // cr->set_source_rgba(0.7, 0.7, 0.7, 0.8); // gray
+  if (timeinfo->tm_sec >=7 && timeinfo->tm_sec <= 37)
+  {
+    cr->set_source_rgba(244/255.0, 138/255.0, 96/255.0, 1.0);
+  } else {
+    cr->set_source_rgba(247/255.0, 101/255.0, 94/255.0, 1.0);
+  }
+  // cr->set_source_rgba(1.0, 1.0, 1.0, 0.8);/
   cr->move_to(0, 0);
   cr->line_to(sin(seconds) * (m_radius * 0.9),
     -cos(seconds) * (m_radius * 0.9));
@@ -124,21 +134,30 @@ bool ClockView::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
   cr->restore();
 
   // draw the minutes hand
-  cr->set_source_rgba(0.117, 0.337, 0.612, 0.9);   // blue
+  // cr->set_source_rgba(0.117, 0.337, 0.612, 0.9);   // blue
+  // cr->set_source_rgba(243/255.0, 181/255.0, 41/255.0, 0.8);
+  if (timeinfo->tm_min >=7 && timeinfo->tm_min <= 37)
+  {
+    cr->set_source_rgba(244/255.0, 138/255.0, 96/255.0, 1.0);
+  } else {
+    cr->set_source_rgba(247/255.0, 101/255.0, 94/255.0, 1.0);
+  }
+  
   cr->move_to(0, 0);
   cr->line_to(sin(minutes + seconds / 60) * (m_radius * 0.8),
     -cos(minutes + seconds / 60) * (m_radius * 0.8));
   cr->stroke();
 
   // draw the hours hand
-  cr->set_source_rgba(0.337, 0.612, 0.117, 0.9);   // green
-  cr->move_to(0, 0);
-  cr->line_to(sin(hours + minutes / 12.0) * (m_radius * 0.5),
-    -cos(hours + minutes / 12.0) * (m_radius * 0.5));
-  cr->stroke();
-  cr->restore();
+  // cr->set_source_rgba(0.337, 0.612, 0.117, 0.9);   // green
+  // cr->move_to(0, 0);
+  // cr->line_to(sin(hours + minutes / 12.0) * (m_radius * 0.5),
+  //   -cos(hours + minutes / 12.0) * (m_radius * 0.5));
+  // cr->stroke();
+  // cr->restore();
 
   // draw a little dot in the middle
+  cr->set_source_rgb(181 / 255.0, 11/255.0, 11 / 255.0);
   cr->arc(0, 0, m_line_width / 3.0, 0, 2 * M_PI);
   cr->fill();
 
