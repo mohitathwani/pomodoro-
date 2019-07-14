@@ -13,7 +13,6 @@ addons:
     - libxml2-utils
     - gcc-7
     - g++-7
-    - cmake
 
 before_script:
   - mkdir build
