@@ -4,7 +4,7 @@
 #include <gtkmm/window.h>
 #include <gtkmm/cssprovider.h>
 
-#include "MainGrid.h"
+#include "MainBox.h"
 #include "ClockView.h"
 
 class MainWindow: public Gtk::Window {
@@ -15,8 +15,7 @@ class MainWindow: public Gtk::Window {
     void operator=(MainWindow const&) = delete;
 
     private:
-    MainGrid m_main_grid;
-    ClockView m_clock_view;
+    MainBox m_main_box;
     
     Glib::RefPtr<Gtk::CssProvider> m_css_provider;
     Glib::RefPtr<Gdk::Screen> m_screen;

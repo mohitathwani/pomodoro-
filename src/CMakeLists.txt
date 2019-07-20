@@ -2,7 +2,7 @@ link_directories(${GTKMM_LIBRARY_DIRS})
 include_directories(${GTKMM_INCLUDE_DIRS})
 
 add_executable(pomodoro main.cpp 
-    MainWindow.cpp MainGrid.cpp ClockView.cpp resources.c)
+    MainWindow.cpp MainBox.cpp ClockView.cpp resources.c)
 
 add_custom_command(
         OUTPUT ${CMAKE_SOURCE_DIR}/src/resources.c

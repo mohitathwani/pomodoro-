@@ -4,7 +4,6 @@ MainWindow::MainWindow() {
     set_title("Pomodoro");
     set_name("MainWindow");
     set_resizable(false);
-    // set_default_size(320, 600);
     set_default_size(600,600);
     set_position(Gtk::WIN_POS_CENTER);
 
@@ -22,8 +21,7 @@ MainWindow::MainWindow() {
     m_screen = Gdk::Screen::get_default();
     m_style_context = get_style_context();
     m_style_context->add_provider_for_screen(m_screen, m_css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    // add(m_main_grid);
-    add(m_clock_view);
+    add(m_main_box);
 
     show_all();
 }
